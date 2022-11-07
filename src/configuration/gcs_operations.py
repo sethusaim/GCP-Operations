@@ -4,14 +4,12 @@ from pickle import loads
 
 from google.cloud.storage import Client
 
-from src.utils.read_params import read_params
+from src.constant import SAVE_FORMAT
 
 
 class GCSOperation:
     def __init__(self):
-        self.config = read_params()
-
-        self.save_format = self.config["save_format"]
+        pass
 
     def get_storage_client(self):
         try:
@@ -69,9 +67,9 @@ class GCSOperation:
     def load_model(self, model_name, bucket, model_dir=None):
         try:
             func = (
-                lambda: model_name + self.save_format
+                lambda: model_name + SAVE_FORMAT
                 if model_dir is None
-                else model_dir + "/" + model_name + self.save_format
+                else model_dir + "/" + model_name + SAVE_FORMAT
             )
 
             model_file = func()
@@ -88,17 +86,17 @@ class GCSOperation:
 
         except Exception as e:
             raise e
-        
-    def upload_folder(self,folder,bucket):
+
+    def upload_folder(self, folder, bucket):
         try:
             files = listdir(folder)
-            
+
             for f in files:
-                src_f = join(folder,f)
-                
-                dest_f = folder + "/" + f  
-                
-                self.upload_file(bucket,src_f,dest_f)
-        
+                src_f = join(folder, f)
+
+                dest_f = folder + "/" + f
+
+                self.upload_file(bucket, src_f, dest_f)
+
         except Exception as e:
-            raise e 
+            raise e

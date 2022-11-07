@@ -7,6 +7,8 @@ __pycache__/
 *.so
 demotest.py
 
+.terraform
+
 anpr-343111-74da99b6e751.json
 
 # Distribution / packaging
